@@ -5,6 +5,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.Date;
+
 @ControllerAdvice
 @PropertySource("classpath:gradle.properties")
 public class AppConfig {
@@ -13,6 +15,8 @@ public class AppConfig {
 
     @ModelAttribute("applicationVersion")
     public String getApplicationVersion() {
-        return applicationVersion;
+        return "local".equals(applicationVersion) ?
+                String.valueOf(new Date().getTime())
+                : applicationVersion;
     }
 }
